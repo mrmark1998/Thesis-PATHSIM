@@ -1,0 +1,44 @@
+
+Further testing with Beata's code even with adjacent point comparisons between 0-15 didn't really find much even with very similar paths, and none of the outliers (simscores of 7-8) to be in DPD.
+
+So I went back to square 1 with Morgan's code then started tinkering with what she wrote.  Using her code to traverse all points twice in two for loops, it found many more points, some even inside the DPD.
+
+A = [687, 515];
+B = [390, 660];
+path1 = shortestpathdilated(bigmap, A, B, 1);
+coord1 = findCoords(path1);
+
+C = [679, 517];
+D = randompoint(bigmap);
+path2 = shortestpathdilated(bigmap, C, D, 1);
+coord2 = findCoords(path2);
+
+plotsim(bigmap, coord1,coord2);
+
+
+% Now compare them using the plot similarities
+
+path_similarities_M2(coord1, coord2);
+
+
+
+
+Thoughts -
+
+Although this code is very thorough and has 2 for-loops, it is much too bulky to use as it takes a long time to process all the points
+
+I think we still need to create a simpler code like Beata's with a better path comparison algorithm that is more accurate perhaps..
+
+Tests:
+
+tic;path_similarities_M(coord1, coord2, 1599);toc; = 24.45s found all dpd pairs (851)
+tic;path_similarities_M(coord1, coord2, 799);toc; = 24.7s  " contacts proportional
+tic;path_similarities_M(coord1, coord2, 299);toc; = 23.9s  "
+tic;path_similarities_M(coord1, coord2, 199);toc; = 16.6s found 531 dpd pairs and some close contacts
+tic;path_similarities_M(coord1, coord2, 99);toc; = 9.3s, but only found 15 dpd pairs and did not specify some
+
+
+tic; path_similarities_M2(coord1, coord2); toc; = 25.79s found all points and 851 dpd pairs
+
+
+- I'm also not sure why Beata's code had partial simscores that she had to work around with >= either

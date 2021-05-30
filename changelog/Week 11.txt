@@ -1,0 +1,22 @@
+- Created Function and fixed it
+
+
+
+- Modified Plotsim colors to be more visually appealing
+
+- Added plotmany to plot the data of multiple plots from tests
+
+
+
+TEST_4
+Elapsed time is 3779.049895 seconds.
+3779079
+63 minutes
+
+TEST_1
+4550102
+75.8 minutes
+75.833333333333333333333333333333
+
+
+16.9% faster

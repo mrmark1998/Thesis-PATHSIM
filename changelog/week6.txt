@@ -1,0 +1,80 @@
+I used my own script from last semester to generate 2 random walks which I graphed here.
+
+I assumed that from the random point generation of my code, the length of the script was the velocity in which the person traveled.  I was unsure from looking at the MRO point data on how to exactly extract the time stamps (nor what they meant).
+
+Find coordinates of 2 paths:
+---------------------------------------------------------------------
+A = randompoint(bigmap);
+B = randompoint(bigmap);
+path1 = shortestpathdilated(bigmap, A, B, 1);
+coord1 = findCoords(path1);
+
+C = randompoint(bigmap);
+D = randompoint(bigmap);
+path2 = shortestpathdilated(bigmap, C, D, 1);
+coord2 = findCoords(path2);
+
+
+I figured out how to plot coordinates on the same map:
+---------------------------------------------------------------------
+hold on
+coord1x = coord1(:,2);
+coord1y = coord1(:,1);
+
+coord2x = coord2(:,2);
+coord2y = coord2(:,1);
+
+plot(coord1x, coord1y, 'green', coord2x, coord2y, 'magenta')
+-----------------------------------------------------------------------
+Then I realized instead of generating random coordinates, perhaps plot the starting points close to each other then see. My function still returns some infinite responses due to the buffer of the buildings and impossility of some paths, which I have to figure out later.  However, I was able to get some similar paths:
+
+A = [215, 713];
+B = [390, 655];
+path1 = shortestpathdilated(bigmap, A, B, 1);
+coord1 = findCoords(path1);
+
+C = [218, 711];
+D = randompoint(bigmap);
+path2 = shortestpathdilated(bigmap, C, D, 1);
+coord2 = findCoords(path2);
+
+--------------------------------------------------------------------------
+For now, I have to figure out how to determine the time stamp and speed of the user since I am assuming that they are walking at the same path. For example, since the line in the magenta, or path2 was longer than the green one, I figured out that we need to basically divide the coord paths by a multiple.
+
+I was thinking about sizes of each array and seeing how they compare.  Then using the multiple of the division to increase the step size for the longer path.
+
+
+
+*Unable to create function since POINTMRO doesn't exist in the function, not sure how yet to do this, however I did figure out how to do it fo rthe first point so far:
+
+MRO1 = POINTMRO{coord1(1,1),coord1(1,2)}.mro;
+
+MRO2 = POINTMRO{coord2(1,1),coord2(1,2)}.mro;
+
+simscore = vecsim_comp_record( MRO1,MRO2,0, 0, VECSIM_para);
+
+simscore.score
+
+
+-  B = mean(simscorearray) - currently is an average
+
+
+TO DO:
+
+- Find out how to call POINTMRO in the function
+- Find out if we can figure out how long points are close together (perhaps use min function to find similarties in pathing and extend it to how long)
+
+--------------------------------------------------------------------------
+
+Week 2
+Brainstorming:
+
+- Different vectors have various speeds
+- Hard to tell where they are going given the MRO data
+	MRO data doesn't really have time stamps
+	Hard to decrypt the MRO data
+	MRO data might come from different towers
+	That's why Simscore is varying even though the scores are close
+- So we need to consider the DPD to see if it really makes it better
+
+- I feel Beata's comparison is pretty good

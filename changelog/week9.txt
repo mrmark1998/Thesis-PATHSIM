@@ -1,0 +1,40 @@
+- Loaded bigmap as usual
+Received information that DPD was a subset of 401-652 rectangle, drew this on the bigmap
+
+plotsim(bigmap);
+rectangle('Position', [401,401,251,251], 'EdgeColor', 'Yellow');
+
+
+- Took midmap as a subset (401,401) to (652, 652) since this was based on our current DPD
+
+midmap=bigmap(401:652,401:652);
+
+Clear figure
+
+clf
+
+
+A = [473, 421];
+B = randompoint(midmap);
+
+path1 = shortestpathdilated(midmap, A, B, 1);
+coord1 = findCoords(path1);
+
+C = [473, 421];
+D = randompoint(midmap);
+path2 = shortestpathdilated(bigmap, C, D, 1);
+coord2 = findCoords(path2); 
+
+
+plotpaths(midmap, coord1,coord2);
+
+% Now compare them using the plot similarities
+
+path_similarities_M(coord1, coord2,3);
+
+
+----------------------------------------------------------------------------
+
+Found that the above clears the matrices of original coordinates
+
+So I went back to square 1

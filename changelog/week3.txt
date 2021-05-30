@@ -1,0 +1,57 @@
+Tested using the map and more about bwgeodesic
+
+Took a random sector of the map and played with it, then I created a function called Shortest Path that takes any map, a start and a finish coordinate and will plot the line from the result.  The line is from the morphing function found in matlab, where it thins itself out after running infinite times (bwmorph)
+
+
+This is from the top left to the bottom right of the section of the map that I took from the Excel file:
+
+smallmap = logical(readmatrix('mapsect.xlsx'))
+
+shortestpath(smallmap, [1 1], [48, 28])
+
+
+tic;shortestpath(logical(readmatrix('mapsect.xlsx')), [1 1], [48, 28]);toc
+
+--------------------------------------------------------
+I also created a function that finds a valid point, AKA 1, on the map called Random point.  It starts with testpoint = 0 and runs until it finds a valid point on the map.  I used this for testing purposes
+
+
+
+A = randompoint(smallmap)
+B = randompoint(smallmap)
+shortestpath(smallmap, A, B)
+
+----------------------------------------------------------
+
+
+
+
+
+
+% To make the big map into a logical array, we had to take out the NaNs:
+
+
+v  = readmatrix('map2d.csv');
+v(isnan(v)) = 0;  
+bigmap = logical(v);
+
+
+
+% Again make 2 random points on the matrix
+
+A = randompoint(bigmap) 
+B = randompoint(bigmap)
+shortestpath(bigmap, A, B)
+----------------------------------------------------------
+Later, changing the funciton to quasi-euclidean resulted in a bit better results as it tended to hug the buildings more and actually tried to find the shortest paths.  We can see that with chessboard it was confusing itself and thinking too much diagonally, not hugging buildings, and sometimes even going in circles.
+
+
+A = randompoint(bigmap) 
+B = randompoint(bigmap)
+tic
+shortestpath(bigmap, A, B)
+toc
+
+
+
+

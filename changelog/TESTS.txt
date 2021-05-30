@@ -1,0 +1,13 @@
+DPD only checks the middle 251 x 251 matrix subset
+
+(401,401) to (652,652)
+
+Keep same coordinates
+
+-------------------------------------
+
+Test 1: 2 Paths A and B, starting coords are same, similar paths
+
+Test 2: 2 Paths A and B, ending coordinates are the same
+
+Test 3: 2 Paths A and B, that meet somewhere in the middle

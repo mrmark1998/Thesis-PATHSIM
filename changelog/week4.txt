@@ -1,0 +1,71 @@
+Added - 
+
+- Path length
+- Output matrix of path
+- Dilated buildings
+- More realistic walking paths
+
+However, I have been playing a lot in MATLAB and figured out there is a function called imdilate.  What this does is it can add bulkiness to our buildings, and so that can help me create paths around them.  
+
+Here is an example of the section of the map that was from the last time.  Professor, you mentioned how a person was walking through the buildings, so it was no t realistic in that sense, even though there is a path.  
+
+
+smallmap = logical(readmatrix('mapsect.xlsx'))
+path = shortestpath(smallmap, [1 1], [48, 28])
+
+But when we dilate the matrices of the building by inverting their 1s and 0s, we get:
+
+SE2 = strel('diamond', 1); 
+BW = imdilate(~smallmap, SE2); 
+shortestpath(~BW, [1 1], [48, 28])
+
+In this case, the ~ is the inversion of the matrix, since we  are dialating and the imdilate function in MATLAB will expand any 1s in our matrix by a shape that we give, and by how many pixels. 
+
+------------------------------------------------------------
+
+
+Therefore, I have written another function, shortestpathdilated that takes a number of pixels to dilate the buffer from buildings by, and does all this while preserving the map.
+
+
+The end result is much more realistic as we can see:
+
+shortestpathdilated(smallmap, [1 1], [48, 28], 1)
+
+We can usually dilate the paths by 1, but if we try more the whole mapping function bugs out.
+
+----------------------------------------------------------------
+
+We can take more random points from this and try the dilating function:
+
+
+A = randompoint(smallmap)
+B = randompoint(smallmap)
+shortestpathdilated(smallmap, A, B, 1)
+
+However, it will cause a bug out when the path is too thin between the buildings, in that case we can still use
+
+shortestpath(smallmap, A, B)
+
+---------------------------------------------------------------
+
+Translating this to the big map, we load the big map into a MATLAB logical matrix first:
+v  = readmatrix('map2d.csv');
+v(isnan(v)) = 0;  
+bigmap = logical(v);
+
+And we get:
+
+A = randompoint(bigmap) 
+B = randompoint(bigmap)
+shortestpathdilated(bigmap, A, B, 1)
+
+shortestpath(bigmap, A, B)
+
+--------------------------------------------------------
+
+I have outputted the yellow line into a Matrix so it will have the 1s in a connected line for use.  I've tried looking up how to convert this into an array list or matrix of coordinates for our use, but it was difficult even though it seems like it would be easy.  I might have to make a function for this, but this is a list of things to do for me.
+
+However, there is still to do:
+
+- Try to get the function to hug the buildings even more
+- Perhaps run a dijkstra or BFS on the output matrix to find 1 single path that doesn't have circles around buildings.

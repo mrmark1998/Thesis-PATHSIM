@@ -1,0 +1,40 @@
+0s are obstacles (buildings) --> -1
+
+1 open space = 2
+
+Start = [48,26]
+End [4,3]
+
+
+-----------------------------------------
+
+- Created A* algorithm coding to optimize pathfinding algorithm
+	Previous algorithm giving too much errors (75-80% error rates)
+	Reduced down to 1%
+
+- A*
+	Similar to Djikstra's method
+	Uses a Heuristic approach to find the best route
+		Computes f(n) based on distances calculated from current position to target
+		Constantly pulls from these calculations and also takes into account of objects in the way
+	Is a best-first search with heuristic logistics, making it better than Djikstra
+	A bit more memory intensive since it relies on more calculations at each step
+
+
+TEST_1 - did not time
+
+Test_2  - end points don't exactly line up
+Elapsed time is 4519.512677 seconds.
+
+TEST 3
+Elapsed time is 6810.194947 seconds.
+
+
+TO DO STILL:
+
+- Bypass failed path by recreating another valid path
+
+- Optimize the algorithm 
+	Create function?
+	Use less matrices
+	

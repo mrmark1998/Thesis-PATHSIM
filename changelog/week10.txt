@@ -1,0 +1,27 @@
+- Reprogrammed randompoint to include subsets of the matrices with starting and ending points
+
+
+
+A = [473, 421];
+B = randompoint(bigmap, [401, 401], [652, 652]);
+path1 = shortestpathdilated(bigmap, A, B, 1);
+coord1 = findCoords(path1);
+
+C = [473, 421];
+D = randompoint(bigmap, [401, 401], [652, 652]);
+path2 = shortestpathdilated(bigmap, C, D, 1);
+coord2 = findCoords(path2); 
+
+plotsim(bigmap, coord1,coord2);
+rectangle('Position', [401,401,251,251], 'EdgeColor', 'Yellow');
+
+
+% Now compare them using the plot similarities
+
+path_similarities_M(coord1, coord2,3);
+---------------------------------------------------------------------------------------------
+
+
+- Made a rudimentary pathcheck function to validate the validity of paths based on their coordinates
+- Made createpath function to utilize pathcheck to create actual paths
+

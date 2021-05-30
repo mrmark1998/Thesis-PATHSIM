@@ -1,0 +1,48 @@
+
+smallmap = logical(readmatrix('mapsect.xlsx'));
+path = shortestpath(smallmap, [1 1], [48, 28]);
+findCoords(path)
+
+
+-------------------------------------
+
+v  = readmatrix('map2d.csv');
+v(isnan(v)) = 0;  
+bigmap = logical(v);
+
+
+
+tic;
+A = randompoint(bigmap) 
+B = randompoint(bigmap)
+path = shortestpathdilated(bigmap, A, B, 1)
+findCoords(path)
+toc;
+
+path = shortestpath(bigmap, A, B)
+findCoords(path)
+--------------------------------------
+
+
+This week I was working on making the coordinates that we desire.
+
+So I found out that when I convert a matrix into a digraph, that the adjacency matrix that we are using must be squared, so I spent some time trying to find out how to do this.  I eventually made my own function that takes the original matrix I have to make it into a square.
+
+
+
+I've been contemplating on trying to use the shortestpath function that has been built into digraph.  What it does is outputs an array with the row# of the coordinates that the path should take from point A to B.  However, to figure this out, I have to find the starting point and end points in the digraph, so the code is still in the works.
+
+The point of this is that even though when I dilate, sometimes it still creates the circles.  
+
+path = shortestpath(bigmap, A, B)
+findCoords(path)
+
+
+So the goal is to just make 1 path and find one set of coordinates in my case.  
+
+
+Things I still need to do:
+
+- Figure out how to hug buildings
+- Figure out when to dilate or not
+- Try to implement shortestpath from 

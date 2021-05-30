@@ -1,0 +1,7 @@
+Debug complete
+- Fixed randompointrad since it assigning sin and cos to the wrong x and y
+- Redid TEST_2
+- Verified all paths with new pathcheck+testcheck functions
+
+
+TEST_2 Elapsed time is 4748.790327 seconds.
